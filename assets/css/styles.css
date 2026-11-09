@@ -1,0 +1,1446 @@
+/* ============================================================
+   Crepúsculo Wiki — Hoja de estilos principal
+   ------------------------------------------------------------
+   Proyecto educativo · Bootstrap 5 · HTML5 · CSS3
+   Paleta:
+     · Morado pastel  → color primario
+     · Rosa pastel    → color secundario
+     · Blanco         → marcos de las imágenes y superficies
+   Organización:
+     1. Variables y base
+     2. Accesibilidad y utilidades
+     3. Barra de navegación
+     4. Portada (hero)
+     5. Secciones y títulos
+     6. Artículo e infobox
+     7. Tarjetas de personajes
+     8. Personajes destacados (pestañas)
+     9. Galería
+    10. Calificación con estrellas y reseñas
+    11. Quiz
+    12. Modales, pie de página y botón "volver arriba"
+    13. Diseño adaptativo y movimiento reducido
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. VARIABLES Y BASE
+   ------------------------------------------------------------ */
+:root {
+  /* Morados (primario) */
+  --tw-purple-50:  #faf5ff;
+  --tw-purple-100: #f3e8ff;
+  --tw-purple-200: #e9d5ff;
+  --tw-purple-300: #d8b4fe;
+  --tw-purple:     #b39ddb;
+  --tw-purple-500: #9575cd;
+  --tw-purple-600: #7e57c2;
+  --tw-purple-700: #5e35b1;
+  --tw-purple-900: #35254d;
+
+  /* Rosas (secundario) */
+  --tw-pink-100: #fce4ec;
+  --tw-pink-200: #f8bbd0;
+  --tw-pink:     #f8bbd0;
+  --tw-pink-400: #f06292;
+  --tw-pink-600: #c2185b;
+
+  /* Neutros y acentos */
+  --tw-ink:    #352b45;
+  --tw-muted:  #6b5f7a;
+  --tw-cream:  #fdf9ff;
+  --tw-white:  #ffffff;
+  --tw-gold:   #d99b00;
+  --tw-border: #ecdff5;
+
+  /* Sombras, radios y tipografía */
+  --tw-shadow: 0 18px 40px -20px rgba(76, 45, 110, 0.38);
+  --tw-shadow-soft: 0 10px 30px -18px rgba(76, 45, 110, 0.3);
+  --tw-radius: 1.25rem;
+  --tw-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --tw-sans: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* La cabecera del documento usa un fondo cálido con halos pastel */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  font-family: var(--tw-sans);
+  color: var(--tw-ink);
+  background-color: var(--tw-cream);
+  background-image:
+    radial-gradient(circle at 10% 4%, rgba(179, 157, 219, 0.18), transparent 32%),
+    radial-gradient(circle at 92% 18%, rgba(248, 187, 208, 0.18), transparent 30%),
+    radial-gradient(circle at 50% 100%, rgba(179, 157, 219, 0.12), transparent 42%);
+  background-attachment: fixed;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tw-serif);
+  color: var(--tw-purple-900);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+p { line-height: 1.75; }
+
+a { color: var(--tw-purple-700); }
+a:hover { color: var(--tw-pink-600); }
+
+::selection {
+  background: var(--tw-pink-200);
+  color: var(--tw-purple-900);
+}
+
+/* ------------------------------------------------------------
+   2. ACCESIBILIDAD Y UTILIDADES
+   ------------------------------------------------------------ */
+
+/* Enlace para saltar directamente al contenido (lectores de pantalla) */
+.tw-skip-link {
+  position: fixed;
+  top: -120px;
+  left: 1rem;
+  z-index: 3000;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.75rem 0.75rem;
+  background: var(--tw-purple-700);
+  color: var(--tw-white);
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.tw-skip-link:focus {
+  top: 0;
+  color: var(--tw-white);
+}
+
+/* Contorno visible y consistente para navegación con teclado */
+:focus-visible {
+  outline: 3px solid var(--tw-purple-700);
+  outline-offset: 3px;
+  border-radius: 0.35rem;
+}
+
+/* Texto solo visible para lectores de pantalla (Bootstrap ya lo incluye,
+   pero lo reforzamos por si se usa fuera de utilidades). */
+.tw-sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Etiqueta pequeña en mayúsculas que precede a los títulos */
+.tw-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.6rem;
+  color: var(--tw-pink-600);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Marco blanco reutilizable para todas las imágenes del sitio */
+.tw-photo {
+  display: block;
+  width: 100%;
+  border: 6px solid var(--tw-white);
+  border-radius: 1rem;
+  box-shadow: 0 16px 34px -18px rgba(70, 40, 100, 0.55);
+  background: var(--tw-white);
+}
+
+/* Botones personalizados */
+.tw-btn-primary,
+.tw-btn-secondary,
+.tw-btn-outline,
+.tw-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+              background-color 0.2s ease, color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.tw-btn-primary {
+  border: 0;
+  background: linear-gradient(135deg, var(--tw-purple-600), var(--tw-purple-500));
+  color: var(--tw-white);
+  padding: 0.72rem 1.4rem;
+  box-shadow: 0 12px 26px -12px rgba(94, 53, 177, 0.75);
+}
+.tw-btn-primary:hover,
+.tw-btn-primary:focus {
+  color: var(--tw-white);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 32px -12px rgba(94, 53, 177, 0.85);
+  background: linear-gradient(135deg, var(--tw-purple-700), var(--tw-purple-600));
+}
+
+.tw-btn-secondary {
+  border: 0;
+  background: var(--tw-pink-200);
+  color: var(--tw-purple-900);
+  padding: 0.72rem 1.4rem;
+  box-shadow: 0 12px 26px -14px rgba(194, 24, 91, 0.5);
+}
+.tw-btn-secondary:hover,
+.tw-btn-secondary:focus {
+  background: var(--tw-pink-400);
+  color: var(--tw-white);
+  transform: translateY(-2px);
+}
+
+.tw-btn-outline {
+  border: 2px solid var(--tw-purple-200);
+  background: var(--tw-white);
+  color: var(--tw-purple-700);
+  padding: 0.6rem 1.15rem;
+}
+.tw-btn-outline:hover,
+.tw-btn-outline:focus {
+  background: var(--tw-purple-100);
+  border-color: var(--tw-purple);
+  color: var(--tw-purple-900);
+  transform: translateY(-2px);
+}
+
+.tw-btn-ghost {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--tw-muted);
+  padding: 0.45rem 0.85rem;
+}
+.tw-btn-ghost:hover,
+.tw-btn-ghost:focus {
+  background: var(--tw-purple-100);
+  color: var(--tw-purple-700);
+}
+
+/* ------------------------------------------------------------
+   3. BARRA DE NAVEGACIÓN
+   ------------------------------------------------------------ */
+.tw-navbar {
+  background: rgba(253, 249, 255, 0.92);
+  border-bottom: 1px solid var(--tw-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: box-shadow 0.25s ease;
+}
+.tw-navbar.is-scrolled { box-shadow: 0 8px 30px -18px rgba(70, 40, 100, 0.45); }
+
+.tw-navbar .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--tw-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--tw-purple-900);
+}
+.tw-navbar .navbar-brand em {
+  font-style: normal;
+  color: var(--tw-pink-600);
+}
+
+.tw-brand-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tw-purple-600), var(--tw-pink-400));
+  color: var(--tw-white);
+  font-size: 1.05rem;
+  box-shadow: 0 6px 16px -8px rgba(94, 53, 177, 0.8);
+}
+
+.tw-navbar .nav-link {
+  margin: 0 0.1rem;
+  padding: 0.48rem 0.72rem !important;
+  border-radius: 999px;
+  color: var(--tw-ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.tw-navbar .nav-link:hover,
+.tw-navbar .nav-link.active,
+.tw-navbar .nav-link[aria-current="page"] {
+  background: var(--tw-purple-100);
+  color: var(--tw-purple-700);
+}
+
+.tw-search .input-group {
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1.5px solid var(--tw-border);
+  background: var(--tw-white);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.tw-search .input-group:focus-within {
+  border-color: var(--tw-purple);
+  box-shadow: 0 0 0 4px rgba(179, 157, 219, 0.22);
+}
+.tw-search .input-group-text {
+  border: 0;
+  background: transparent;
+  color: var(--tw-purple-700);
+}
+.tw-search .form-control {
+  border: 0;
+  background: transparent;
+  font-size: 0.9rem;
+  box-shadow: none !important;
+}
+.tw-search .btn {
+  border: 0;
+  border-radius: 0;
+  background: var(--tw-purple-600);
+  color: var(--tw-white);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding-inline: 1rem;
+}
+.tw-search .btn:hover { background: var(--tw-purple-700); }
+
+/* Botón hamburguesa */
+.tw-navbar .navbar-toggler {
+  border: 1.5px solid var(--tw-border);
+  border-radius: 0.7rem;
+  padding: 0.4rem 0.55rem;
+}
+.tw-navbar .navbar-toggler:focus { box-shadow: 0 0 0 4px rgba(179, 157, 219, 0.3); }
+
+/* ------------------------------------------------------------
+   4. PORTADA (HERO)
+   ------------------------------------------------------------ */
+.tw-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(3rem, 7vw, 6rem) 0;
+  color: var(--tw-white);
+  background-image:
+    linear-gradient(115deg, rgba(38, 25, 58, 0.94) 0%, rgba(70, 40, 110, 0.86) 48%, rgba(94, 53, 177, 0.62) 100%),
+    url("../img/escena-prado.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+/* Estrellitas decorativas (no aportan información) */
+.tw-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(2px 2px at 12% 18%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 34% 70%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 58% 24%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 78% 62%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 90% 30%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 22% 44%, #fff 50%, transparent 51%);
+  background-size: 420px 320px;
+}
+
+.tw-hero::after {
+  content: "";
+  position: absolute;
+  right: -10%;
+  bottom: -45%;
+  z-index: -1;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(248, 187, 208, 0.28), transparent 65%);
+}
+
+.tw-hero .tw-eyebrow { color: var(--tw-pink-200); }
+
+.tw-hero h1 {
+  margin: 0 0 1rem;
+  color: var(--tw-white);
+  font-size: clamp(3.6rem, 11vw, 7.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-shadow: 0 12px 40px rgba(20, 10, 35, 0.45);
+}
+
+.tw-hero-lead {
+  max-width: 38rem;
+  margin-bottom: 1.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+}
+
+.tw-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.4rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.tw-hero-meta i { color: var(--tw-pink-200); }
+
+.tw-hero-poster {
+  position: relative;
+  max-width: 340px;
+  margin: 0 auto;
+  transform: rotate(2.5deg);
+  transition: transform 0.35s ease;
+}
+.tw-hero-poster:hover { transform: rotate(0deg) translateY(-4px); }
+
+.tw-hero-poster img {
+  width: 100%;
+  height: auto;
+  border: 8px solid var(--tw-white);
+  border-radius: 1.1rem;
+  box-shadow: 0 35px 70px -20px rgba(10, 5, 20, 0.8);
+}
+
+.tw-hero-poster figcaption {
+  margin-top: 0.9rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* Tarjeta flotante con la nota media */
+.tw-hero-rating {
+  position: absolute;
+  top: 1.25rem;
+  left: -1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.95rem;
+  border: 4px solid var(--tw-white);
+  border-radius: 1rem;
+  background: var(--tw-pink-200);
+  color: var(--tw-purple-900);
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 16px 34px -14px rgba(10, 5, 20, 0.7);
+  transform: rotate(-4deg);
+}
+.tw-hero-rating i { color: var(--tw-gold); }
+
+/* ------------------------------------------------------------
+   5. SECCIONES Y TÍTULOS
+   ------------------------------------------------------------ */
+.tw-section { padding: clamp(3.2rem, 6vw, 5.5rem) 0; }
+
+.tw-section-soft {
+  background: linear-gradient(180deg, var(--tw-purple-50), var(--tw-cream));
+  border-top: 1px solid var(--tw-border);
+  border-bottom: 1px solid var(--tw-border);
+}
+
+.tw-section-head {
+  max-width: 780px;
+  margin: 0 auto 2.8rem;
+  text-align: center;
+}
+.tw-section-head h2 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  letter-spacing: -0.01em;
+}
+.tw-section-head h2::after {
+  content: "";
+  display: block;
+  width: 84px;
+  height: 4px;
+  margin: 0.8rem auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tw-purple), var(--tw-pink-400));
+}
+.tw-section-head p {
+  margin-bottom: 0;
+  color: var(--tw-muted);
+  font-size: 1.02rem;
+}
+
+/* ------------------------------------------------------------
+   6. ARTÍCULO E INFOBOX (estilo wiki)
+   ------------------------------------------------------------ */
+.tw-article h3 {
+  margin: 2rem 0 0.85rem;
+  font-size: clamp(1.7rem, 2.6vw, 2.15rem);
+}
+.tw-article h3:first-child { margin-top: 0; }
+.tw-article p { color: var(--tw-muted); }
+
+.tw-figure { margin: 1.75rem 0; }
+.tw-figure figcaption {
+  margin-top: 0.55rem;
+  color: var(--tw-muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.tw-quote {
+  position: relative;
+  margin: 1.75rem 0;
+  padding: 1.4rem 1.5rem 1.4rem 3.4rem;
+  border-left: 5px solid var(--tw-pink-400);
+  border-radius: 0 1rem 1rem 0;
+  background: var(--tw-purple-50);
+  color: var(--tw-purple-900);
+  font-family: var(--tw-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+.tw-quote::before {
+  content: "“";
+  position: absolute;
+  top: 0.1rem;
+  left: 1rem;
+  color: var(--tw-purple-300);
+  font-family: Georgia, serif;
+  font-size: 3.4rem;
+  line-height: 1;
+}
+
+/* Tarjetas de autor y directora */
+.tw-persona-card {
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--tw-border);
+  border-radius: var(--tw-radius);
+  background: var(--tw-white);
+  box-shadow: var(--tw-shadow-soft);
+  text-align: center;
+}
+.tw-persona-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: top center;
+}
+.tw-persona-card h4 {
+  margin: 0.9rem 0 0.15rem;
+  font-size: 1.3rem;
+}
+.tw-persona-card p {
+  margin: 0;
+  color: var(--tw-muted);
+  font-size: 0.82rem;
+}
+
+/* Infobox lateral */
+.tw-infobox {
+  position: sticky;
+  top: 92px;
+  padding: 1.5rem;
+  border: 1px solid var(--tw-border);
+  border-radius: var(--tw-radius);
+  background: var(--tw-white);
+  box-shadow: var(--tw-shadow);
+  overflow: hidden;
+}
+.tw-infobox::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--tw-purple), var(--tw-pink-400));
+}
+.tw-infobox h3 {
+  margin: 0.25rem 0 1.1rem;
+  font-size: 1.65rem;
+}
+.tw-infobox dl {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, auto) 1fr;
+  gap: 0.65rem 1rem;
+  margin: 0;
+  font-size: 0.88rem;
+}
+.tw-infobox dt { color: var(--tw-muted); font-weight: 800; }
+.tw-infobox dd { margin: 0; color: var(--tw-ink); }
+
+/* Aviso educativo */
+.tw-disclaimer {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--tw-pink-200);
+  border-radius: 1rem;
+  background: var(--tw-pink-100);
+  color: #7a294d;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.tw-disclaimer i { flex: 0 0 auto; font-size: 1.15rem; margin-top: 0.1rem; }
+.tw-disclaimer p { margin: 0; color: inherit; }
+
+/* Carrusel de la saga */
+.tw-saga {
+  margin-top: 3.5rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--tw-border);
+  border-radius: 1.5rem;
+  background: var(--tw-white);
+  box-shadow: var(--tw-shadow-soft);
+}
+.tw-saga h3 { margin-bottom: 1.25rem; font-size: 1.9rem; }
+
+.tw-saga .carousel-item { padding: 0.5rem 2.75rem 3rem; }
+.tw-saga .carousel-inner { border-radius: 1.25rem; }
+
+.tw-saga-poster img {
+  width: 100%;
+  max-height: 330px;
+  object-fit: contain;
+  border: 6px solid var(--tw-white);
+  border-radius: 0.9rem;
+  box-shadow: var(--tw-shadow-soft);
+  background: var(--tw-white);
+}
+.tw-saga-info h4 { margin-bottom: 0.35rem; font-size: 1.9rem; }
+.tw-saga-info .tw-anio {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.15rem 0.7rem;
+  border-radius: 999px;
+  background: var(--tw-purple-100);
+  color: var(--tw-purple-700);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+.tw-saga-info p { margin-bottom: 0.6rem; color: var(--tw-muted); }
+.tw-saga-info .tw-direccion { font-size: 0.82rem; }
+
+.tw-saga .carousel-control-prev,
+.tw-saga .carousel-control-next {
+  width: 2.75rem;
+  opacity: 1;
+}
+.tw-saga .carousel-control-prev-icon,
+.tw-saga .carousel-control-next-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: var(--tw-purple-600);
+  background-size: 45%;
+  box-shadow: 0 8px 18px -8px rgba(94, 53, 177, 0.7);
+}
+
+.tw-saga .carousel-indicators { bottom: 0.4rem; }
+.tw-saga .carousel-indicators [data-bs-target] {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--tw-purple-300);
+  opacity: 1;
+}
+.tw-saga .carousel-indicators .active { background-color: var(--tw-purple-700); }
+
+/* ------------------------------------------------------------
+   7. TARJETAS DE PERSONAJES
+   ------------------------------------------------------------ */
+.tw-toolbar {
+  padding: 1.1rem;
+  border: 1px solid var(--tw-border);
+  border-radius: 1.2rem;
+  background: var(--tw-white);
+  box-shadow: var(--tw-shadow-soft);
+}
+.tw-toolbar .form-label {
+  margin-bottom: 0.3rem;
+  color: var(--tw-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tw-toolbar .form-control,
+.tw-toolbar .form-select {
+  border: 1.5px solid var(--tw-border);
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+}
+.tw-toolbar .form-control:focus,
+.tw-toolbar .form-select:focus {
+  border-color: var(--tw-purple);
+  box-shadow: 0 0 0 4px rgba(179, 157, 219, 0.2);
+}
+
+.tw-contador {
+  color: var(--tw-muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.tw-card {
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--tw-border);
+  border-radius: var(--tw-radius);
+  background: var(--tw-white);
+  box-shadow: var(--tw-shadow-soft);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+.tw-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--tw-pink-200);
+  box-shadow: 0 26px 48px -26px rgba(70, 40, 100, 0.55);
+}
+
+.tw-card-media {
+  position: relative;
+  padding: 1rem 1rem 0;
+  background: linear-gradient(155deg, var(--tw-purple-100), var(--tw-pink-100));
+}
+.tw-card-media img {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  object-position: top center;
+  border: 6px solid var(--tw-white);
+  border-radius: 0.9rem;
+  box-shadow: 0 12px 24px -16px rgba(70, 40, 100, 0.55);
+  transition: transform 0.35s ease;
+}
+.tw-card:hover .tw-card-media img { transform: scale(1.025); }
+
+.tw-card .card-body { padding: 1.15rem 1.25rem 1.35rem; }
+.tw-card .card-title { margin-bottom: 0.1rem; font-size: 1.45rem; }
+.tw-actor {
+  margin-bottom: 0.7rem;
+  color: var(--tw-pink-600);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.tw-card .card-text {
+  margin-bottom: 1.1rem;
+  color: var(--tw-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* Insignias de especie */
+.tw-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.7rem;
+  border: 3px solid var(--tw-white);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px -4px rgba(40, 20, 60, 0.35);
+}
+.tw-badge-card {
+  position: absolute;
+  top: 1.45rem;
+  left: 1.45rem;
+}
+.tw-badge-vampiro { background: var(--tw-purple-200); color: var(--tw-purple-900); }
+.tw-badge-humano  { background: #d7f0dc; color: #1f6b33; }
+.tw-badge-licantropo { background: #ffe6c7; color: #8a5200; }
+
+/* Estado vacío de la búsqueda */
+.tw-empty {
+  padding: 3rem 1rem;
+  border: 1.5px dashed var(--tw-purple-300);
+  border-radius: 1.2rem;
+  background: var(--tw-white);
+  color: var(--tw-muted);
+  text-align: center;
+}
+.tw-empty i { display: block; margin-bottom: 0.6rem; color: var(--tw-purple-400); font-size: 2rem; }
+
+/* ------------------------------------------------------------
+   8. PERSONAJES DESTACADOS (PESTAÑAS)
+   ------------------------------------------------------------ */
+.tw-featured {
+  position: relative;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.82);
+  background:
+    radial-gradient(circle at 85% 10%, rgba(248, 187, 208, 0.22), transparent 38%),
+    radial-gradient(circle at 10% 90%, rgba(179, 157, 219, 0.24), transparent 42%),
+    linear-gradient(155deg, #2b1c40 0%, #3f2a5e 52%, #56356f 100%);
+}
+.tw-featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 70% 18%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 45% 70%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 88% 60%, #fff 50%, transparent 51%);
+  background-size: 360px 280px;
+  pointer-events: none;
+}
+.tw-featured .container { position: relative; z-index: 1; }
+.tw-featured .tw-section-head h2 { color: var(--tw-white); }
+.tw-featured .tw-section-head p { color: rgba(255, 255, 255, 0.76); }
+
+.tw-pills {
+  gap: 0.45rem;
+  margin-bottom: 2rem;
+}
+.tw-pills .nav-link {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 800;
+  padding: 0.55rem 1.3rem;
+}
+.tw-pills .nav-link:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--tw-white);
+}
+.tw-pills .nav-link.active {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--tw-pink-200), var(--tw-purple-200));
+  color: var(--tw-purple-900);
+  box-shadow: 0 10px 24px -12px rgba(248, 187, 208, 0.75);
+}
+
+.tw-protagonista {
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+}
+.tw-protagonista img {
+  border: 8px solid var(--tw-white);
+  border-radius: 1.1rem;
+  box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.8);
+}
+.tw-protagonista h3 {
+  margin-bottom: 0.25rem;
+  color: var(--tw-white);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+.tw-protagonista .tw-actor { color: var(--tw-pink-200); }
+.tw-protagonista p { color: rgba(255, 255, 255, 0.8); }
+
+.tw-protagonista blockquote {
+  margin: 1.2rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid var(--tw-pink-400);
+  color: var(--tw-pink-100);
+  font-family: var(--tw-serif);
+  font-size: 1.3rem;
+  font-style: italic;
+}
+
+.tw-datos {
+  gap: 0.5rem 0;
+  margin: 1.2rem 0 1.4rem;
+  font-size: 0.88rem;
+}
+.tw-datos dt { color: rgba(255, 255, 255, 0.6); font-weight: 800; }
+.tw-datos dd { margin: 0; color: var(--tw-white); }
+
+/* ------------------------------------------------------------
+   9. GALERÍA
+   ------------------------------------------------------------ */
+.tw-galeria-item {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1rem;
+  background: var(--tw-purple-100);
+  box-shadow: var(--tw-shadow-soft);
+  cursor: zoom-in;
+}
+.tw-galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 6px solid var(--tw-white);
+  border-radius: 1rem;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+.tw-galeria-item:hover img,
+.tw-galeria-item:focus-visible img {
+  transform: scale(1.05);
+  filter: saturate(1.08);
+}
+.tw-galeria-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 2rem 0.9rem 0.8rem;
+  background: linear-gradient(180deg, transparent, rgba(30, 15, 45, 0.82));
+  color: var(--tw-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: left;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   10. CALIFICACIÓN CON ESTRELLAS Y RESEÑAS
+   ------------------------------------------------------------ */
+.tw-rating-section {
+  background:
+    radial-gradient(circle at 10% 15%, rgba(248, 187, 208, 0.26), transparent 34%),
+    radial-gradient(circle at 90% 80%, rgba(179, 157, 219, 0.28), transparent 36%),
+    linear-gradient(180deg, var(--tw-cream), #f7effc);
+  border-top: 1px solid var(--tw-border);
+}
+
+.tw-rating-card,
+.tw-rating-resumen {
+  height: 100%;
+  padding: clamp(1.4rem, 3.2vw, 2.2rem);
+  border: 1px solid var(--tw-border);
+  border-radius: 1.5rem;
+  background: var(--tw-white);
+  box-shadow: var(--tw-shadow);
+}
+.tw-rating-card h3 { margin-bottom: 0.6rem; font-size: 1.9rem; }
+.tw-rating-card > p { color: var(--tw-muted); font-size: 0.9rem; }
+
+/* Estrellas interactivas: radios nativos + etiquetas en forma de estrella.
+   El contenedor se invierte para que 1 estrella quede a la izquierda. */
+.tw-star-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  margin: 0.35rem 0 0.15rem;
+}
+.tw-star-input input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.tw-star-input label {
+  color: #d9cce7;
+  font-size: 2.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.tw-star-input label:hover,
+.tw-star-input label:hover ~ label,
+.tw-star-input input:checked ~ label {
+  color: var(--tw-gold);
+}
+.tw-star-input label:hover { transform: scale(1.12); }
+.tw-star-input input:focus-visible + label {
+  outline: 3px solid var(--tw-purple-700);
+  outline-offset: 3px;
+  border-radius: 0.35rem;
+}
+
+.tw-rating-card .form-label {
+  color: var(--tw-ink);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.tw-rating-card .form-control {
+  border: 1.5px solid var(--tw-border);
+  border-radius: 0.85rem;
+  font-size: 0.92rem;
+}
+.tw-rating-card .form-control:focus {
+  border-color: var(--tw-purple);
+  box-shadow: 0 0 0 4px rgba(179, 157, 219, 0.2);
+}
+.tw-rating-card .form-text { color: var(--tw-muted); font-size: 0.76rem; }
+
+/* Resumen de la nota */
+.tw-rating-resumen { display: flex; flex-direction: column; }
+.tw-rating-score { text-align: center; }
+
+.tw-rating-score .tw-nota {
+  display: block;
+  color: var(--tw-purple-900);
+  font-family: var(--tw-serif);
+  font-size: clamp(4rem, 9vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1;
+}
+.tw-stars-display {
+  display: inline-flex;
+  gap: 0.18rem;
+  margin: 0.4rem 0 0.35rem;
+  color: var(--tw-gold);
+  font-size: 1.35rem;
+}
+.tw-rating-score p {
+  margin: 0 0 1.4rem;
+  color: var(--tw-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Barras de distribución */
+.tw-distribucion { display: grid; gap: 0.55rem; }
+.tw-dist-row {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr 2rem;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--tw-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.tw-dist-label { white-space: nowrap; }
+.tw-dist-label i { color: var(--tw-gold); font-size: 0.72rem; }
+.tw-dist-count { text-align: right; }
+.tw-distribucion .progress {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--tw-purple-100);
+  overflow: hidden;
+}
+.tw-distribucion .progress-bar {
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tw-purple-500), var(--tw-pink-400));
+}
+
+/* Lista de reseñas */
+.tw-resenas { margin-top: 1.6rem; }
+.tw-resenas h3 { margin: 0; font-size: 1.55rem; }
+
+.tw-resena {
+  display: flex;
+  gap: 0.9rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--tw-border);
+}
+.tw-resena:last-child { border-bottom: 0; }
+
+.tw-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tw-purple-200), var(--tw-pink-200));
+  color: var(--tw-purple-900);
+  font-family: var(--tw-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.tw-resena h4 {
+  margin: 0;
+  font-family: var(--tw-sans);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+.tw-resena .tw-estrellas-mini {
+  color: var(--tw-gold);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+.tw-resena p {
+  margin: 0.25rem 0 0.3rem;
+  color: var(--tw-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.tw-resena time { color: #9b8faa; font-size: 0.72rem; }
+
+/* ------------------------------------------------------------
+   11. QUIZ
+   ------------------------------------------------------------ */
+.tw-quiz-section {
+  background: linear-gradient(180deg, var(--tw-purple-50), var(--tw-cream));
+  border-top: 1px solid var(--tw-border);
+}
+
+.tw-quiz-card {
+  padding: clamp(1.2rem, 3.5vw, 2.2rem);
+  border: 1px solid var(--tw-border);
+  border-radius: 1.6rem;
+  background: var(--tw-white);
+  box-shadow: var(--tw-shadow);
+}
+
+.tw-quiz-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  color: var(--tw-muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+.tw-quiz-cabecera strong { color: var(--tw-purple-700); }
+
+.tw-quiz-card .progress {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--tw-purple-100);
+  overflow: hidden;
+}
+.tw-quiz-card .progress-bar {
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tw-purple-500), var(--tw-pink-400));
+  transition: width 0.35s ease;
+}
+
+.tw-quiz-figure { margin: 0; }
+.tw-quiz-figure img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: center;
+}
+.tw-quiz-figure figcaption {
+  margin-top: 0.5rem;
+  color: var(--tw-muted);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+#quizPregunta {
+  margin-bottom: 1.1rem;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  outline: none;
+}
+
+.tw-quiz-opcion {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--tw-border);
+  border-radius: 0.9rem;
+  background: var(--tw-purple-50);
+  color: var(--tw-ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: left;
+  transition: transform 0.18s ease, border-color 0.18s ease,
+              background-color 0.18s ease, color 0.18s ease;
+}
+.tw-quiz-opcion:hover:not(:disabled),
+.tw-quiz-opcion:focus-visible:not(:disabled) {
+  border-color: var(--tw-purple);
+  background: var(--tw-purple-100);
+  transform: translateX(4px);
+}
+.tw-quiz-opcion:disabled { cursor: default; opacity: 1; }
+
+.tw-quiz-opcion.correcta {
+  border-color: #2e7d32;
+  background: #e4f5e7;
+  color: #1b5e20;
+}
+.tw-quiz-opcion.incorrecta {
+  border-color: #c62828;
+  background: #fdecea;
+  color: #8e1b1b;
+}
+.tw-quiz-opcion.correcta::after {
+  content: " ✓";
+  font-weight: 900;
+}
+.tw-quiz-opcion.incorrecta::after {
+  content: " ✕";
+  font-weight: 900;
+}
+
+.tw-quiz-feedback {
+  min-height: 0;
+  font-size: 0.88rem;
+}
+.tw-quiz-feedback .alert {
+  margin-bottom: 0;
+  border-radius: 0.85rem;
+  font-size: 0.85rem;
+}
+
+.tw-quiz-pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+}
+
+.tw-mejor {
+  color: var(--tw-muted);
+  font-size: 0.86rem;
+}
+.tw-mejor i { color: var(--tw-gold); }
+
+/* ------------------------------------------------------------
+   12. MODALES, PIE DE PÁGINA Y VOLVER ARRIBA
+   ------------------------------------------------------------ */
+.modal-content {
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.4rem;
+  box-shadow: 0 30px 70px -20px rgba(30, 15, 45, 0.5);
+}
+.modal-header {
+  border-bottom: 1px solid var(--tw-border);
+  background: linear-gradient(135deg, var(--tw-purple-100), var(--tw-pink-100));
+}
+.modal-header .modal-title {
+  color: var(--tw-purple-900);
+  font-size: 1.65rem;
+}
+.modal-body { padding: 1.5rem; }
+.modal-footer { border-top: 1px solid var(--tw-border); }
+
+#personajeImagen {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: top center;
+}
+#personajeNombre { margin-bottom: 0.15rem; font-size: 2rem; }
+#personajeDescripcion { color: var(--tw-muted); font-size: 0.92rem; }
+
+.tw-modal-datos {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: 0.45rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
+.tw-modal-datos dt { color: var(--tw-muted); font-weight: 800; }
+.tw-modal-datos dd { margin: 0; }
+
+.tw-modal-cita {
+  margin: 0.9rem 0;
+  padding: 0.85rem 1rem;
+  border-left: 4px solid var(--tw-pink-400);
+  border-radius: 0 0.8rem 0.8rem 0;
+  background: var(--tw-purple-50);
+  color: var(--tw-purple-900);
+  font-family: var(--tw-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+#galeriaImagen {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border: 6px solid var(--tw-white);
+  border-radius: 1rem;
+  background: var(--tw-purple-50);
+}
+#galeriaTitulo { margin: 0.9rem 0 0.35rem; }
+#galeriaDescripcion { margin: 0; color: var(--tw-muted); font-size: 0.9rem; }
+
+/* Resultado del quiz */
+.tw-resultado { text-align: center; }
+.tw-resultado .tw-resultado-nota {
+  display: block;
+  color: var(--tw-purple-900);
+  font-family: var(--tw-serif);
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.tw-resultado .tw-resultado-estrellas {
+  margin: 0.4rem 0 0.9rem;
+  color: var(--tw-gold);
+  font-size: 1.8rem;
+}
+.tw-resultado p { color: var(--tw-muted); }
+
+/* Pie de página */
+.tw-footer {
+  padding: 3.5rem 0 1.5rem;
+  background: #2b1c40;
+  color: rgba(255, 255, 255, 0.72);
+}
+.tw-footer h2,
+.tw-footer h3 {
+  margin-bottom: 0.9rem;
+  color: var(--tw-white);
+  font-size: 1.35rem;
+}
+.tw-footer a { color: var(--tw-pink-200); text-decoration: none; }
+.tw-footer a:hover { color: var(--tw-white); text-decoration: underline; }
+.tw-footer p { font-size: 0.85rem; }
+.tw-footer ul { padding-left: 0; list-style: none; }
+.tw-footer li { margin-bottom: 0.45rem; font-size: 0.85rem; }
+.tw-footer hr { border-color: rgba(255, 255, 255, 0.12); margin: 2rem 0 1.25rem; }
+
+.tw-footer .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+  color: var(--tw-white);
+  font-family: var(--tw-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.tw-footer .navbar-brand em { color: var(--tw-pink-200); font-style: normal; }
+
+.tw-footer details {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+.tw-footer summary {
+  color: var(--tw-white);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.tw-footer details ul { margin-top: 0.7rem; }
+
+/* Botón volver arriba */
+.tw-back-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1030;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--tw-purple-600);
+  color: var(--tw-white);
+  font-size: 1.15rem;
+  box-shadow: 0 12px 28px -10px rgba(94, 53, 177, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, visibility 0.25s ease,
+              transform 0.25s ease, background-color 0.2s ease;
+}
+.tw-back-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.tw-back-top:hover { background: var(--tw-purple-700); }
+
+/* Entrada suave de las secciones al cargar */
+@keyframes tw-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tw-section-head { animation: tw-fade-up 0.7s ease both; }
+
+/* ------------------------------------------------------------
+   13. DISEÑO ADAPTATIVO Y MOVIMIENTO REDUCIDO
+   ------------------------------------------------------------ */
+
+/* Tabletas y móviles grandes */
+@media (max-width: 991.98px) {
+  html { scroll-padding-top: 76px; }
+  .tw-navbar .navbar-collapse {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--tw-border);
+  }
+  .tw-search { margin-top: 0.75rem; }
+  .tw-infobox { position: static; }
+  .tw-hero-poster { max-width: 290px; margin-top: 2rem; }
+  .tw-hero-rating { left: -0.5rem; }
+  .tw-protagonista { margin-bottom: 1rem; }
+  .tw-quiz-figure img { height: 300px; }
+}
+
+/* Tabletas pequeñas */
+@media (max-width: 767.98px) {
+  .tw-hero { text-align: center; }
+  .tw-hero-lead { margin-inline: auto; }
+  .tw-hero-meta { justify-content: center; }
+  .tw-hero .d-flex { justify-content: center; }
+  .tw-saga .carousel-item { padding-inline: 0.5rem; }
+  .tw-saga-info { margin-top: 1.25rem; text-align: center; }
+  .tw-card-media img { height: 320px; }
+  .tw-quiz-figure img { height: 260px; }
+  .tw-rating-score .tw-nota { font-size: 4.2rem; }
+}
+
+/* Móviles */
+@media (max-width: 575.98px) {
+  .tw-hero h1 { font-size: clamp(3rem, 18vw, 4.6rem); }
+  .tw-hero-poster { max-width: 240px; }
+  #personajeImagen { height: 300px; }
+  .tw-hero-rating { left: -0.25rem; font-size: 0.8rem; }
+  .tw-card-media img { height: 280px; }
+  .tw-galeria-caption { font-size: 0.72rem; padding: 1.4rem 0.7rem 0.65rem; }
+  .tw-star-input label { font-size: 2.2rem; }
+  .tw-quiz-card { padding: 1rem; }
+  .tw-quiz-figure img { height: 220px; }
+  .tw-infobox dl { grid-template-columns: 1fr; gap: 0.15rem; }
+  .tw-infobox dd { margin-bottom: 0.55rem; }
+  .tw-modal-datos { grid-template-columns: 1fr; gap: 0.1rem; }
+  .tw-modal-datos dd { margin-bottom: 0.55rem; }
+}
+
+/* Preferencia del sistema: reducir animaciones */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Modo de alto contraste forzado por el sistema operativo */
+@media (forced-colors: active) {
+  .tw-photo,
+  .tw-card-media img,
+  .tw-hero-poster img,
+  .tw-galeria-item img {
+    border-color: Canvas;
+  }
+  .tw-btn-primary,
+  .tw-btn-secondary,
+  .tw-btn-outline { border: 2px solid ButtonText; }
+}

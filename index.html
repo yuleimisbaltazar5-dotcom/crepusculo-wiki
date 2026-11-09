@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Crepúsculo Wiki: ficha de la película, personajes, galería, calificación con estrellas y quiz interactivo. Proyecto educativo con Bootstrap 5.">
+  <meta name="author" content="Proyecto educativo · GFPI-F-135 V04">
+  <meta name="theme-color" content="#b39ddb">
+
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+
+  <title>Crepúsculo Wiki | Personajes, película y quiz</title>
+
+  <!-- Tipografías: serif romántica para títulos y sans legible para el cuerpo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 e iconos servidos localmente para que el sitio sea autónomo -->
+  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+
+  <!-- Estilos propios del proyecto -->
+  <link rel="stylesheet" href="assets/css/styles.css?v=1">
+</head>
+
+<body>
+  <!-- Accesibilidad: permite saltar la navegación con el teclado -->
+  <a class="tw-skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <noscript>
+    <div class="alert alert-warning text-center m-0 rounded-0" role="alert">
+      Activa JavaScript para usar el buscador de personajes, las reseñas con estrellas y el quiz interactivo.
+    </div>
+  </noscript>
+
+  <!-- ============================================================
+       BARRA DE NAVEGACIÓN
+       ============================================================ -->
+  <nav class="navbar navbar-expand-xl tw-navbar sticky-top" id="navPrincipal" aria-label="Navegación principal">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio">
+        <span class="tw-brand-icon" aria-hidden="true"><i class="bi bi-moon-stars-fill"></i></span>
+        <span>Crepúsculo <em>Wiki</em></span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#menuPrincipal" aria-controls="menuPrincipal"
+              aria-expanded="false" aria-label="Abrir menú de navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-lg-3 me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#inicio" aria-current="page">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pelicula">La película</a></li>
+          <li class="nav-item"><a class="nav-link" href="#personajes">Personajes</a></li>
+          <li class="nav-item"><a class="nav-link" href="#destacados">Protagonistas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quiz">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="#calificar">Calificar</a></li>
+        </ul>
+
+        <!-- Formulario de búsqueda rápida: filtra las tarjetas de personajes -->
+        <form class="tw-search" id="formBuscador" role="search">
+          <label class="visually-hidden" for="buscadorNav">Buscar un personaje por nombre</label>
+          <div class="input-group">
+            <span class="input-group-text" aria-hidden="true"><i class="bi bi-search"></i></span>
+            <input class="form-control" type="search" id="buscadorNav"
+                   placeholder="Buscar personaje…" autocomplete="off">
+            <button class="btn" type="submit">Buscar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <main id="contenido">
+    <!-- ============================================================
+         PORTADA
+         ============================================================ -->
+    <section class="tw-hero" id="inicio" aria-labelledby="tituloHero">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-7">
+            <p class="tw-eyebrow">
+              <i class="bi bi-stars" aria-hidden="true"></i>
+              Wiki no oficial · Proyecto educativo
+            </p>
+            <h1 id="tituloHero">Crepúsculo</h1>
+            <p class="tw-hero-lead">
+              Bienvenido a la wiki de <strong>Crepúsculo (2008)</strong>: la historia de amor entre
+              una adolescente y un vampiro que cambió la forma de vivir la fantasía romántica.
+              Explora sus personajes, descubre los secretos de Forks y demuestra cuánto sabes en el quiz.
+            </p>
+
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn tw-btn-primary btn-lg" href="#personajes">
+                <i class="bi bi-people-fill" aria-hidden="true"></i> Explorar personajes
+              </a>
+              <a class="btn tw-btn-secondary btn-lg" href="#quiz">
+                <i class="bi bi-controller" aria-hidden="true"></i> Jugar el quiz
+              </a>
+            </div>
+
+            <ul class="tw-hero-meta">
+              <li><i class="bi bi-calendar3" aria-hidden="true"></i> 2008</li>
+              <li><i class="bi bi-clock" aria-hidden="true"></i> 122 min</li>
+              <li><i class="bi bi-heart-fill" aria-hidden="true"></i> Romance fantástico</li>
+              <li>
+                <i class="bi bi-star-fill" aria-hidden="true"></i>
+                <span><span id="notaHero">4.3</span>/5</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-5">
+            <figure class="tw-hero-poster">
+              <img src="assets/img/poster-twilight.jpg"
+                   alt="Póster oficial de la película Crepúsculo, con Bella y Edward abrazados"
+                   width="500" height="740" fetchpriority="high">
+              <span class="tw-hero-rating" aria-hidden="true">
+                <i class="bi bi-star-fill"></i> 4.3
+              </span>
+              <figcaption>Póster de la película · Summit Entertainment</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LA PELÍCULA (artículo + ficha técnica + saga)
+         ============================================================ -->
+    <section class="tw-section" id="pelicula" aria-labelledby="tituloPelicula">
+      <div class="container">
+        <header class="tw-section-head">
+          <p class="tw-eyebrow">La historia</p>
+          <h2 id="tituloPelicula">La película</h2>
+          <p>
+            Todo lo que necesitas saber sobre la primera entrega de la saga:
+            sinopsis, ficha técnica, curiosidades y las cinco películas que la continuaron.
+          </p>
+        </header>
+
+        <div class="row g-4 g-lg-5">
+          <!-- Artículo principal -->
+          <div class="col-lg-8">
+            <article class="tw-article">
+              <h3>Sinopsis</h3>
+              <p>
+                Bella Swan, una adolescente de diecisiete años, se muda de Phoenix a
+                <strong>Forks, Washington</strong>, un pequeño pueblo conocido por su lluvia y sus
+                bosques, para vivir con su padre. Allí conoce a <strong>Edward Cullen</strong>, un
+                compañero de clase tan atractivo como misterioso. Pronto descubre que Edward y su
+                familia son vampiros que se alimentan de sangre animal.
+              </p>
+              <p>
+                A pesar del peligro, ambos se enamoran. La llegada de una banda de vampiros nómadas
+                pondrá a Bella en el centro de una cacería y obligará a los Cullen a demostrar
+                hasta dónde están dispuestos a llegar para protegerla.
+              </p>
+
+              <figure class="tw-figure">
+                <img class="tw-photo" src="assets/img/escena-prado.jpg"
+                     alt="Bella y Edward tumbados juntos en un prado lleno de flores"
+                     width="1000" height="666" loading="lazy">
+                <figcaption>Bella y Edward en el prado, una de las escenas más recordadas de la película.</figcaption>
+              </figure>
+
+              <h3>Un amor imposible</h3>
+              <p>
+                La relación entre Bella y Edward está marcada por la tensión entre el deseo y el
+                peligro. Él teme perder el control; ella se niega a vivir sin él. Esa dualidad
+                convierte cada encuentro en una mezcla de ternura y amenaza, y explica por qué la
+                historia se volvió un fenómeno cultural.
+              </p>
+
+              <blockquote class="tw-quote">
+                «Y así, el león se enamoró de la oveja.»
+                <span class="d-block mt-1 small fst-normal text-muted">— Edward Cullen</span>
+              </blockquote>
+
+              <h3>Detrás de cámaras</h3>
+              <p>
+                La película adapta la novela homónima de <strong>Stephenie Meyer</strong>, publicada
+                en 2005. Fue dirigida por <strong>Catherine Hardwicke</strong> y se estrenó el
+                21 de noviembre de 2008. La química entre Kristen Stewart y Robert Pattinson, la
+                fotografía azulada de Forks y la banda sonora se convirtieron en señas de identidad
+                de la saga.
+              </p>
+
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="tw-persona-card">
+                    <img class="tw-photo" src="assets/img/stephenie-meyer.jpg"
+                         alt="Fotografía de Stephenie Meyer, autora de la novela Crepúsculo"
+                         width="500" height="775" loading="lazy">
+                    <h4>Stephenie Meyer</h4>
+                    <p>Autora de la novela original</p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="tw-persona-card">
+                    <img class="tw-photo" src="assets/img/catherine-hardwicke.jpg"
+                         alt="Fotografía de Catherine Hardwicke, directora de Crepúsculo"
+                         width="600" height="437" loading="lazy">
+                    <h4>Catherine Hardwicke</h4>
+                    <p>Directora de la película</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Ficha técnica y aviso -->
+          <aside class="col-lg-4">
+            <div class="tw-infobox" aria-labelledby="fichaTecnicaTitulo">
+              <h3 id="fichaTecnicaTitulo">Ficha técnica</h3>
+              <dl>
+                <dt>Título original</dt><dd>Twilight</dd>
+                <dt>Dirección</dt><dd>Catherine Hardwicke</dd>
+                <dt>Guion</dt><dd>Melissa Rosenberg</dd>
+                <dt>Basada en</dt><dd><em>Crepúsculo</em>, de Stephenie Meyer</dd>
+                <dt>Producción</dt><dd>Summit Entertainment</dd>
+                <dt>Estreno</dt><dd>21 de noviembre de 2008</dd>
+                <dt>Duración</dt><dd>122 minutos</dd>
+                <dt>Género</dt><dd>Romance fantástico</dd>
+                <dt>Protagonistas</dt><dd>Kristen Stewart, Robert Pattinson y Taylor Lautner</dd>
+                <dt>Clasificación</dt><dd>PG-13</dd>
+              </dl>
+              <a class="btn tw-btn-outline w-100 mt-3" href="#galeria">
+                <i class="bi bi-images" aria-hidden="true"></i> Ver galería
+              </a>
+            </div>
+
+            <div class="tw-disclaimer mt-4" role="note">
+              <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+              <p>
+                <strong>Uso educativo.</strong> Este sitio no está afiliado a los titulares de los
+                derechos. Las imágenes y marcas pertenecen a sus autores y se emplean con fines
+                ilustrativos, sin ánimo de lucro.
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Carrusel de la saga -->
+        <div class="tw-saga">
+          <h3>La saga en cinco películas</h3>
+          <div id="carouselSaga" class="carousel slide" data-bs-ride="false" aria-label="Películas de la saga Crepúsculo">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row align-items-center g-4">
+                  <div class="col-md-4 tw-saga-poster">
+                    <img src="assets/img/poster-twilight.jpg" alt="Póster de Crepúsculo (2008)"
+                         width="500" height="740" loading="lazy">
+                  </div>
+                  <div class="col-md-8 tw-saga-info">
+                    <span class="tw-anio">2008</span>
+                    <h4>Crepúsculo</h4>
+                    <p>Bella llega a Forks, conoce a Edward y descubre el secreto de la familia Cullen.</p>
+                    <p class="tw-direccion"><strong>Dirección:</strong> Catherine Hardwicke</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row align-items-center g-4">
+                  <div class="col-md-4 tw-saga-poster">
+                    <img src="assets/img/poster-newmoon.jpg" alt="Póster de Luna Nueva (2009)"
+                         width="500" height="739" loading="lazy">
+                  </div>
+                  <div class="col-md-8 tw-saga-info">
+                    <span class="tw-anio">2009</span>
+                    <h4>Luna Nueva</h4>
+                    <p>Edward se aleja para proteger a Bella y Jacob ocupa un lugar central en su vida.</p>
+                    <p class="tw-direccion"><strong>Dirección:</strong> Chris Weitz</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row align-items-center g-4">
+                  <div class="col-md-4 tw-saga-poster">
+                    <img src="assets/img/poster-eclipse.jpg" alt="Póster de Eclipse (2010)"
+                         width="500" height="738" loading="lazy">
+                  </div>
+                  <div class="col-md-8 tw-saga-info">
+                    <span class="tw-anio">2010</span>
+                    <h4>Eclipse</h4>
+                    <p>Victoria busca venganza y Bella debe elegir entre Edward y Jacob.</p>
+                    <p class="tw-direccion"><strong>Dirección:</strong> David Slade</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row align-items-center g-4">
+                  <div class="col-md-4 tw-saga-poster">
+                    <img src="assets/img/poster-breaking1.jpg" alt="Póster de Amanecer, parte 1 (2011)"
+                         width="500" height="741" loading="lazy">
+                  </div>
+                  <div class="col-md-8 tw-saga-info">
+                    <span class="tw-anio">2011</span>
+                    <h4>Amanecer · Parte 1</h4>
+                    <p>La boda de Bella y Edward desencadena un embarazo que nadie creía posible.</p>
+                    <p class="tw-direccion"><strong>Dirección:</strong> Bill Condon</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row align-items-center g-4">
+                  <div class="col-md-4 tw-saga-poster">
+                    <img src="assets/img/poster-breaking2.jpg" alt="Póster de Amanecer, parte 2 (2012)"
+                         width="500" height="673" loading="lazy">
+                  </div>
+                  <div class="col-md-8 tw-saga-info">
+                    <span class="tw-anio">2012</span>
+                    <h4>Amanecer · Parte 2</h4>
+                    <p>La familia Cullen enfrenta su batalla final para proteger a Renesmee.</p>
+                    <p class="tw-direccion"><strong>Dirección:</strong> Bill Condon</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselSaga" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Película anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselSaga" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Película siguiente</span>
+            </button>
+
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselSaga" data-bs-slide-to="0" class="active"
+                      aria-current="true" aria-label="Diapositiva 1: Crepúsculo"></button>
+              <button type="button" data-bs-target="#carouselSaga" data-bs-slide-to="1"
+                      aria-label="Diapositiva 2: Luna Nueva"></button>
+              <button type="button" data-bs-target="#carouselSaga" data-bs-slide-to="2"
+                      aria-label="Diapositiva 3: Eclipse"></button>
+              <button type="button" data-bs-target="#carouselSaga" data-bs-slide-to="3"
+                      aria-label="Diapositiva 4: Amanecer, parte 1"></button>
+              <button type="button" data-bs-target="#carouselSaga" data-bs-slide-to="4"
+                      aria-label="Diapositiva 5: Amanecer, parte 2"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PERSONAJES
+         ============================================================ -->
+    <section class="tw-section tw-section-soft" id="personajes" aria-labelledby="tituloPersonajes">
+      <div class="container">
+        <header class="tw-section-head">
+          <p class="tw-eyebrow">Habitantes de Forks</p>
+          <h2 id="tituloPersonajes">Personajes</h2>
+          <p>
+            Vampiros, licántropos y humanos se cruzan en esta historia. Busca por nombre o filtra
+            por especie para conocer a cada uno.
+          </p>
+        </header>
+
+        <!-- Barra de filtros: formulario de búsqueda y selección -->
+        <div class="tw-toolbar mb-4">
+          <div class="row g-3 align-items-end">
+            <div class="col-md-5">
+              <label class="form-label" for="filtroTexto">Buscar por nombre</label>
+              <input type="search" class="form-control" id="filtroTexto"
+                     placeholder="Ej.: Bella, Edward, Jacob…" autocomplete="off">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="filtroCategoria">Filtrar por especie</label>
+              <select class="form-select" id="filtroCategoria">
+                <option value="todos">Todos los personajes</option>
+                <option value="vampiros">Vampiros</option>
+                <option value="licantropos">Licántropos</option>
+                <option value="humanos">Humanos</option>
+              </select>
+            </div>
+            <div class="col-md-3 d-flex flex-wrap align-items-center justify-content-md-end gap-2">
+              <button type="button" class="btn tw-btn-outline btn-sm" id="btnLimpiarFiltros">
+                <i class="bi bi-eraser" aria-hidden="true"></i> Limpiar
+              </button>
+              <span class="tw-contador" id="contadorPersonajes" aria-live="polite">16 personajes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rejilla de tarjetas: 1 columna en móvil, 2 en tablet, 3-4 en escritorio -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4" id="gridPersonajes">
+          <!-- Bella -->
+          <div class="col tw-personaje" data-nombre="Bella Swan" data-categoria="humanos">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/bella.jpg" alt="Retrato de Bella Swan, interpretada por Kristen Stewart"
+                     width="600" height="841" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-humano">Humana</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Bella Swan</h3>
+                <p class="tw-actor">Kristen Stewart</p>
+                <p class="card-text">
+                  Una adolescente de Phoenix que se muda a Forks y descubre un mundo oculto entre
+                  los bosques. Su valentía y su corazón dividen la historia en dos.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="bella"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Edward -->
+          <div class="col tw-personaje" data-nombre="Edward Cullen" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/edward.jpg" alt="Retrato de Edward Cullen, interpretado por Robert Pattinson"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampiro</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Edward Cullen</h3>
+                <p class="tw-actor">Robert Pattinson</p>
+                <p class="card-text">
+                  Un vampiro de mirada dorada que puede leer la mente. Su amor por Bella desafía
+                  todas las reglas de su especie.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="edward"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Jacob -->
+          <div class="col tw-personaje" data-nombre="Jacob Black" data-categoria="licantropos">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/jacob.jpg" alt="Retrato de Jacob Black, interpretado por Taylor Lautner"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-licantropo">Licántropo</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Jacob Black</h3>
+                <p class="tw-actor">Taylor Lautner</p>
+                <p class="card-text">
+                  El mejor amigo de Bella en La Push. Alegre, leal y destinado a convertirse en un
+                  hombre lobo para proteger a su tribu.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="jacob"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Alice -->
+          <div class="col tw-personaje" data-nombre="Alice Cullen" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/alice.jpg" alt="Retrato de Alice Cullen, interpretada por Ashley Greene"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampira</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Alice Cullen</h3>
+                <p class="tw-actor">Ashley Greene</p>
+                <p class="card-text">
+                  Vampira con visiones del futuro y un estilo inconfundible. Es el hada madrina de
+                  Bella dentro de los Cullen.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="alice"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Carlisle -->
+          <div class="col tw-personaje" data-nombre="Carlisle Cullen" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/carlisle.jpg" alt="Retrato de Carlisle Cullen, interpretado por Peter Facinelli"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampiro</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Carlisle Cullen</h3>
+                <p class="tw-actor">Peter Facinelli</p>
+                <p class="card-text">
+                  El médico y patriarca de los Cullen. Demuestra que un vampiro puede elegir la
+                  compasión por encima de su instinto.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="carlisle"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Esme -->
+          <div class="col tw-personaje" data-nombre="Esme Cullen" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/esme.jpg" alt="Retrato de Esme Cullen, interpretada por Elizabeth Reaser"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampira</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Esme Cullen</h3>
+                <p class="tw-actor">Elizabeth Reaser</p>
+                <p class="card-text">
+                  La matriarca cálida y protectora que convierte la casa Cullen en un verdadero
+                  hogar para toda la familia.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="esme"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Rosalie -->
+          <div class="col tw-personaje" data-nombre="Rosalie Hale" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/rosalie.jpg" alt="Retrato de Rosalie Hale, interpretada por Nikki Reed"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampira</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Rosalie Hale</h3>
+                <p class="tw-actor">Nikki Reed</p>
+                <p class="card-text">
+                  Belleza de hielo y corazón herido. Su pasado explica su desconfianza hacia los
+                  humanos y su necesidad de pertenecer.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="rosalie"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Emmett -->
+          <div class="col tw-personaje" data-nombre="Emmett Cullen" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/emmett.jpg" alt="Retrato de Emmett Cullen, interpretado por Kellan Lutz"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampiro</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Emmett Cullen</h3>
+                <p class="tw-actor">Kellan Lutz</p>
+                <p class="card-text">
+                  El hermano fuerte y divertido. Siempre está listo para una broma, un desafío o
+                  una partida de béisbol bajo la tormenta.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="emmett"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Jasper -->
+          <div class="col tw-personaje" data-nombre="Jasper Hale" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/jasper.jpg" alt="Retrato de Jasper Hale, interpretado por Jackson Rathbone"
+                     width="600" height="840" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampiro</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Jasper Hale</h3>
+                <p class="tw-actor">Jackson Rathbone</p>
+                <p class="card-text">
+                  Vampiro empático que siente las emociones de los demás. Su autocontrol es su
+                  batalla personal y Alice su mayor apoyo.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="jasper"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Charlie -->
+          <div class="col tw-personaje" data-nombre="Charlie Swan" data-categoria="humanos">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/charlie.jpg" alt="Retrato de Charlie Swan, interpretado por Billy Burke"
+                     width="600" height="847" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-humano">Humano</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Charlie Swan</h3>
+                <p class="tw-actor">Billy Burke</p>
+                <p class="card-text">
+                  Padre de Bella y jefe de policía. Su amor silencioso y sus gestos cotidianos son
+                  uno de los pilares emocionales de la historia.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="charlie"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Victoria -->
+          <div class="col tw-personaje" data-nombre="Victoria" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/victoria.jpg" alt="Retrato de Victoria, interpretada por Rachelle Lefevre"
+                     width="600" height="774" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampira</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Victoria</h3>
+                <p class="tw-actor">Rachelle Lefevre</p>
+                <p class="card-text">
+                  Nómada de melena roja y sed de venganza. Su sombra persigue a Bella mucho más
+                  allá de la primera película.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="victoria"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- James -->
+          <div class="col tw-personaje" data-nombre="James" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/james.jpg" alt="Retrato de James, interpretado por Cam Gigandet"
+                     width="600" height="785" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampiro</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">James</h3>
+                <p class="tw-actor">Cam Gigandet</p>
+                <p class="card-text">
+                  Cazador paciente y cruel. Convierte la persecución de Bella en un juego mortal y
+                  se convierte en el gran antagonista del film.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="james"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Laurent -->
+          <div class="col tw-personaje" data-nombre="Laurent" data-categoria="vampiros">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/laurent.jpg" alt="Retrato de Laurent, interpretado por Edi Gathegi"
+                     width="600" height="802" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-vampiro">Vampiro</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Laurent</h3>
+                <p class="tw-actor">Edi Gathegi</p>
+                <p class="card-text">
+                  Vampiro prudente que viaja con los nómadas. Su lealtad es tan ambigua como su
+                  mirada y prefiere no quedarse demasiado tiempo.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="laurent"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Billy Black -->
+          <div class="col tw-personaje" data-nombre="Billy Black" data-categoria="humanos">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/billy.jpg" alt="Retrato de Billy Black, interpretado por Gil Birmingham"
+                     width="600" height="837" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-humano">Humano</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Billy Black</h3>
+                <p class="tw-actor">Gil Birmingham</p>
+                <p class="card-text">
+                  Anciano de la tribu Quileute y padre de Jacob. Su sabiduría y las leyendas de su
+                  pueblo explican el origen de los hombres lobo.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="billy"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Renée Dwyer -->
+          <div class="col tw-personaje" data-nombre="Renée Dwyer" data-categoria="humanos">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/renee.jpg" alt="Retrato de Renée Dwyer, interpretada por Sarah Clarke"
+                     width="700" height="394" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-humano">Humana</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Renée Dwyer</h3>
+                <p class="tw-actor">Sarah Clarke</p>
+                <p class="card-text">
+                  La madre de Bella. Su decisión de dejar que su hija viva con Charlie en Forks
+                  marca el inicio de toda la historia.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="renee"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Sam Uley -->
+          <div class="col tw-personaje" data-nombre="Sam Uley" data-categoria="licantropos">
+            <article class="card tw-card">
+              <div class="tw-card-media">
+                <img src="assets/img/sam.jpg" alt="Retrato de Sam Uley, interpretado por Chaske Spencer"
+                     width="600" height="800" loading="lazy">
+                <span class="tw-badge tw-badge-card tw-badge-licantropo">Licántropo</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Sam Uley</h3>
+                <p class="tw-actor">Chaske Spencer</p>
+                <p class="card-text">
+                  El líder de la manada de La Push. Serio y protector, guía a los jóvenes Quileute
+                  que descubren su transformación en hombres lobo.
+                </p>
+                <button type="button" class="btn tw-btn-outline mt-auto" data-personaje="sam"
+                        data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                  Leer ficha <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Mensaje cuando el filtro no encuentra resultados -->
+        <div class="tw-empty mt-4 d-none" id="sinResultados" role="status">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <strong>No encontramos personajes con ese filtro.</strong>
+          <p class="mb-0">Prueba con otro nombre o selecciona «Todos los personajes».</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PERSONAJES IMPORTANTES (pestañas)
+         ============================================================ -->
+    <section class="tw-section tw-featured" id="destacados" aria-labelledby="tituloDestacados">
+      <div class="container">
+        <header class="tw-section-head">
+          <p class="tw-eyebrow" style="color: var(--tw-pink-200);">El corazón de la saga</p>
+          <h2 id="tituloDestacados">Personajes importantes</h2>
+          <p>
+            Bella, Edward y Jacob forman el triángulo que sostiene toda la historia.
+            Conoce sus motivaciones, sus miedos y las frases que los definen.
+          </p>
+        </header>
+
+        <!-- Pestañas accesibles de Bootstrap -->
+        <ul class="nav nav-pills tw-pills justify-content-center" id="tabsProtagonistas" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab-bella" data-bs-toggle="pill"
+                    data-bs-target="#pane-bella" type="button" role="tab"
+                    aria-controls="pane-bella" aria-selected="true">Bella</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-edward" data-bs-toggle="pill"
+                    data-bs-target="#pane-edward" type="button" role="tab"
+                    aria-controls="pane-edward" aria-selected="false">Edward</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-jacob" data-bs-toggle="pill"
+                    data-bs-target="#pane-jacob" type="button" role="tab"
+                    aria-controls="pane-jacob" aria-selected="false">Jacob</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="contenidoProtagonistas">
+          <!-- Bella -->
+          <div class="tab-pane fade show active" id="pane-bella" role="tabpanel"
+               aria-labelledby="tab-bella" tabindex="0">
+            <div class="tw-protagonista">
+              <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-md-4">
+                  <img class="tw-photo" src="assets/img/bella.jpg"
+                       alt="Retrato de Bella Swan, la protagonista humana de Crepúsculo"
+                       width="600" height="841" loading="lazy">
+                </div>
+                <div class="col-md-8">
+                  <p class="tw-eyebrow" style="color: var(--tw-pink-200);">La protagonista</p>
+                  <h3>Bella Swan</h3>
+                  <p class="tw-actor">Kristen Stewart · Humana</p>
+                  <p>
+                    Bella es una joven observadora y decidida que no encaja en el soleado Phoenix.
+                    Al mudarse a Forks se siente fuera de lugar, hasta que la curiosidad por Edward
+                    la lleva a descubrir un mundo que creía imposible. Su mayor conflicto no es el
+                    peligro: es elegir entre dos formas de amor y dos futuros.
+                  </p>
+                  <p>
+                    Su valentía no viene de la fuerza física, sino de la certeza de sus sentimientos.
+                    Esa terquedad la convierte en el centro de la historia y en el motor de todas
+                    las decisiones de los Cullen.
+                  </p>
+                  <blockquote>«No tengo miedo de ti.»</blockquote>
+                  <dl class="row tw-datos">
+                    <dt class="col-sm-4">Interpretada por</dt><dd class="col-sm-8">Kristen Stewart</dd>
+                    <dt class="col-sm-4">Especie</dt><dd class="col-sm-8">Humana</dd>
+                    <dt class="col-sm-4">Origen</dt><dd class="col-sm-8">Phoenix, Arizona</dd>
+                    <dt class="col-sm-4">Frase</dt><dd class="col-sm-8">«No tengo miedo de ti.»</dd>
+                  </dl>
+                  <button type="button" class="btn tw-btn-secondary" data-personaje="bella"
+                          data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                    Ver ficha completa <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Edward -->
+          <div class="tab-pane fade" id="pane-edward" role="tabpanel"
+               aria-labelledby="tab-edward" tabindex="0">
+            <div class="tw-protagonista">
+              <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-md-4">
+                  <img class="tw-photo" src="assets/img/edward.jpg"
+                       alt="Retrato de Edward Cullen, el vampiro protagonista"
+                       width="600" height="840" loading="lazy">
+                </div>
+                <div class="col-md-8">
+                  <p class="tw-eyebrow" style="color: var(--tw-pink-200);">El vampiro</p>
+                  <h3>Edward Cullen</h3>
+                  <p class="tw-actor">Robert Pattinson · Vampiro</p>
+                  <p>
+                    Nacido en Chicago en 1901, Edward fue convertido por Carlisle en 1918. Ha vivido
+                    más de un siglo ocultando lo que es y escuchando los pensamientos de todos,
+                    hasta que Bella llega a su clase de biología y su mente queda en silencio.
+                  </p>
+                  <p>
+                    Esa excepción lo fascina y lo aterra. Edward representa el amor que intenta
+                    proteger incluso cuando la mejor forma de proteger es alejarse; su lucha entre
+                    el instinto y la conciencia es el motor de la primera película.
+                  </p>
+                  <blockquote>«Y así, el león se enamoró de la oveja.»</blockquote>
+                  <dl class="row tw-datos">
+                    <dt class="col-sm-4">Interpretado por</dt><dd class="col-sm-8">Robert Pattinson</dd>
+                    <dt class="col-sm-4">Especie</dt><dd class="col-sm-8">Vampiro</dd>
+                    <dt class="col-sm-4">Habilidad</dt><dd class="col-sm-8">Leer la mente</dd>
+                    <dt class="col-sm-4">Frase</dt><dd class="col-sm-8">«Y así, el león se enamoró de la oveja.»</dd>
+                  </dl>
+                  <button type="button" class="btn tw-btn-secondary" data-personaje="edward"
+                          data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                    Ver ficha completa <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jacob -->
+          <div class="tab-pane fade" id="pane-jacob" role="tabpanel"
+               aria-labelledby="tab-jacob" tabindex="0">
+            <div class="tw-protagonista">
+              <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-md-4">
+                  <img class="tw-photo" src="assets/img/jacob.jpg"
+                       alt="Retrato de Jacob Black, el licántropo de La Push"
+                       width="600" height="840" loading="lazy">
+                </div>
+                <div class="col-md-8">
+                  <p class="tw-eyebrow" style="color: var(--tw-pink-200);">El lobo</p>
+                  <h3>Jacob Black</h3>
+                  <p class="tw-actor">Taylor Lautner · Licántropo</p>
+                  <p>
+                    Jacob es el amigo que siempre está, el que hace reír a Bella en el peor momento
+                    y el que le recuerda que existe un mundo fuera de los Cullen. Su herencia
+                    Quileute lo convierte en hombre lobo y lo enfrenta directamente a los vampiros
+                    que protegen Forks.
+                  </p>
+                  <p>
+                    Su lealtad se transforma en un amor que Bella no puede corresponder, y esa
+                    tensión alimenta el triángulo amoroso más famoso de la saga. Jacob no es solo el
+                    rival de Edward: es la alternativa humana, cálida y terrenal.
+                  </p>
+                  <blockquote>«Siempre estaré aquí para ti, Bella.»</blockquote>
+                  <dl class="row tw-datos">
+                    <dt class="col-sm-4">Interpretado por</dt><dd class="col-sm-8">Taylor Lautner</dd>
+                    <dt class="col-sm-4">Especie</dt><dd class="col-sm-8">Licántropo</dd>
+                    <dt class="col-sm-4">Tribu</dt><dd class="col-sm-8">Quileute</dd>
+                    <dt class="col-sm-4">Frase</dt><dd class="col-sm-8">«Siempre estaré aquí para ti, Bella.»</dd>
+                  </dl>
+                  <button type="button" class="btn tw-btn-secondary" data-personaje="jacob"
+                          data-bs-toggle="modal" data-bs-target="#modalPersonaje">
+                    Ver ficha completa <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALERÍA
+         ============================================================ -->
+    <section class="tw-section" id="galeria" aria-labelledby="tituloGaleria">
+      <div class="container">
+        <header class="tw-section-head">
+          <p class="tw-eyebrow">Momentos inolvidables</p>
+          <h2 id="tituloGaleria">Galería de la película</h2>
+          <p>
+            Escenas, paisajes y pósters de Crepúsculo. Haz clic en cualquier imagen para verla en
+            grande y leer su descripción.
+          </p>
+        </header>
+
+        <div class="row g-3 g-md-4">
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/escena-prado.jpg" data-titulo="El prado escondido"
+                    data-descripcion="El lugar donde Edward revela su verdadera naturaleza a Bella y le muestra cómo brilla su piel bajo el sol."
+                    aria-label="Ampliar imagen: El prado escondido">
+              <img src="assets/img/escena-prado.jpg" alt="Bella y Edward tumbados en el prado" loading="lazy"
+                   width="1000" height="666">
+              <span class="tw-galeria-caption">El prado escondido</span>
+            </button>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/escena-biologia.jpg" data-titulo="Primer encuentro en clase"
+                    data-descripcion="Bella y Edward comparten mesa en la clase de biología. Es el inicio de una atracción que ninguno de los dos puede explicar."
+                    aria-label="Ampliar imagen: Primer encuentro en clase">
+              <img src="assets/img/escena-biologia.jpg" alt="Bella y Edward en la clase de biología" loading="lazy"
+                   width="900" height="408">
+              <span class="tw-galeria-caption">Primer encuentro en clase</span>
+            </button>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/escena-beisbol.jpg" data-titulo="Béisbol entre vampiros"
+                    data-descripcion="La familia Cullen aprovecha una tormenta para jugar al béisbol sin que los humanos noten la fuerza y la velocidad de sus golpes."
+                    aria-label="Ampliar imagen: Béisbol entre vampiros">
+              <img src="assets/img/escena-beisbol.jpg" alt="Los Cullen jugando al béisbol durante una tormenta" loading="lazy"
+                   width="800" height="800">
+              <span class="tw-galeria-caption">Béisbol entre vampiros</span>
+            </button>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/escena-mordida.jpg" data-titulo="La mordida de James"
+                    data-descripcion="El momento más tenso de la película: James ataca a Bella y los Cullen deben intervenir antes de que sea demasiado tarde."
+                    aria-label="Ampliar imagen: La mordida de James">
+              <img src="assets/img/escena-mordida.jpg" alt="James mordiendo a Bella en el bosque" loading="lazy"
+                   width="900" height="600">
+              <span class="tw-galeria-caption">La mordida de James</span>
+            </button>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/escena-bella-edward.jpg" data-titulo="Bella y Edward"
+                    data-descripcion="Dos mundos que se atraen irremediablemente. Un retrato de la pareja que definió toda una generación."
+                    aria-label="Ampliar imagen: Bella y Edward">
+              <img src="assets/img/escena-bella-edward.jpg" alt="Retrato de Bella y Edward abrazados" loading="lazy"
+                   width="800" height="1200">
+              <span class="tw-galeria-caption">Bella y Edward</span>
+            </button>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/forks.jpg" data-titulo="Forks, Washington"
+                    data-descripcion="El pueblo lluvioso que lo cambió todo. Sus bosques, su niebla y su calma aparente esconden un mundo sobrenatural."
+                    aria-label="Ampliar imagen: Forks, Washington">
+              <img src="assets/img/forks.jpg" alt="Letrero de bienvenida del pueblo de Forks" loading="lazy"
+                   width="900" height="570">
+              <span class="tw-galeria-caption">Forks, Washington</span>
+            </button>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/escena-twilight12.jpg" data-titulo="Bajo la lluvia"
+                    data-descripcion="Un retrato de la pareja protagonista que resume la estética azulada y romántica de la película."
+                    aria-label="Ampliar imagen: Bajo la lluvia">
+              <img src="assets/img/escena-twilight12.jpg" alt="Retrato de Bella y Edward bajo la lluvia" loading="lazy"
+                   width="700" height="1053">
+              <span class="tw-galeria-caption">Bajo la lluvia</span>
+            </button>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <button type="button" class="tw-galeria-item" data-bs-toggle="modal" data-bs-target="#modalGaleria"
+                    data-img="assets/img/poster-twilight.jpg" data-titulo="Póster oficial"
+                    data-descripcion="Arte promocional de Crepúsculo (2008), distribuida por Summit Entertainment."
+                    aria-label="Ampliar imagen: Póster oficial">
+              <img src="assets/img/poster-twilight.jpg" alt="Póster oficial de la película Crepúsculo" loading="lazy"
+                   width="500" height="740">
+              <span class="tw-galeria-caption">Póster oficial</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CALIFICAR LA PELÍCULA
+         ============================================================ -->
+    <section class="tw-section tw-rating-section" id="calificar" aria-labelledby="tituloCalificar">
+      <div class="container">
+        <header class="tw-section-head">
+          <p class="tw-eyebrow">Tu opinión cuenta</p>
+          <h2 id="tituloCalificar">Califica la película</h2>
+          <p>
+            ¿Cuántas estrellas le das a Crepúsculo? Deja tu reseña y descubre cómo la califica
+            la comunidad. Todo se guarda solo en tu navegador.
+          </p>
+        </header>
+
+        <div class="row g-4 g-lg-5">
+          <!-- Formulario de reseña -->
+          <div class="col-lg-5">
+            <div class="tw-rating-card">
+              <h3>Deja tu reseña</h3>
+              <p>Elige una calificación de 1 a 5 estrellas y comparte tu opinión.</p>
+
+              <form id="formResena" novalidate>
+                <fieldset class="mb-3">
+                  <legend class="form-label">Calificación <span class="text-danger" aria-hidden="true">*</span></legend>
+
+                  <!-- Radios nativos: accesibles con teclado. El orden 5→1 y la
+                       inversión visual permiten colorear las estrellas correctas. -->
+                  <div class="tw-star-input" role="radiogroup"
+                       aria-label="Calificación de 1 a 5 estrellas"
+                       aria-required="true" aria-describedby="textoCalificacion">
+                    <input type="radio" id="estrella5" name="calificacion" value="5">
+                    <label for="estrella5" title="5 estrellas">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i>
+                      <span class="visually-hidden">5 estrellas</span>
+                    </label>
+
+                    <input type="radio" id="estrella4" name="calificacion" value="4">
+                    <label for="estrella4" title="4 estrellas">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i>
+                      <span class="visually-hidden">4 estrellas</span>
+                    </label>
+
+                    <input type="radio" id="estrella3" name="calificacion" value="3">
+                    <label for="estrella3" title="3 estrellas">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i>
+                      <span class="visually-hidden">3 estrellas</span>
+                    </label>
+
+                    <input type="radio" id="estrella2" name="calificacion" value="2">
+                    <label for="estrella2" title="2 estrellas">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i>
+                      <span class="visually-hidden">2 estrellas</span>
+                    </label>
+
+                    <input type="radio" id="estrella1" name="calificacion" value="1">
+                    <label for="estrella1" title="1 estrella">
+                      <i class="bi bi-star-fill" aria-hidden="true"></i>
+                      <span class="visually-hidden">1 estrella</span>
+                    </label>
+                  </div>
+
+                  <p class="form-text mb-0" id="textoCalificacion" aria-live="polite">
+                    Aún no has seleccionado una calificación.
+                  </p>
+                  <p class="text-danger small mb-0" id="errorCalificacion" hidden>
+                    Selecciona una calificación de 1 a 5 estrellas.
+                  </p>
+                </fieldset>
+
+                <div class="mb-3">
+                  <label class="form-label" for="nombreResena">
+                    Tu nombre <span class="text-danger" aria-hidden="true">*</span>
+                  </label>
+                  <input type="text" class="form-control" id="nombreResena" name="nombre"
+                         maxlength="40" required autocomplete="name" placeholder="Ej.: Luna">
+                  <div class="invalid-feedback">Escribe tu nombre (mínimo 2 caracteres).</div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="comentarioResena">
+                    Tu reseña <span class="text-danger" aria-hidden="true">*</span>
+                  </label>
+                  <textarea class="form-control" id="comentarioResena" name="comentario"
+                            rows="3" maxlength="280" required
+                            placeholder="¿Qué te pareció la película?"></textarea>
+                  <div class="invalid-feedback">Escribe un comentario de al menos 10 caracteres.</div>
+                  <p class="form-text mb-0 text-end">
+                    <span id="contadorComentario">0</span>/280 caracteres
+                  </p>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="aceptoResena" required>
+                  <label class="form-check-label small" for="aceptoResena">
+                    Entiendo que esta reseña es una demostración y se guarda solo en mi navegador.
+                  </label>
+                  <div class="invalid-feedback">Debes aceptar para publicar la reseña.</div>
+                </div>
+
+                <button type="submit" class="btn tw-btn-primary w-100">
+                  <i class="bi bi-send-fill" aria-hidden="true"></i> Publicar reseña
+                </button>
+
+                <p class="form-text mt-2 mb-0 text-center">
+                  <i class="bi bi-shield-lock" aria-hidden="true"></i>
+                  Sin servidor: tus datos no salen de este dispositivo.
+                </p>
+              </form>
+
+              <div class="alert alert-success mt-3 d-none" id="alertaResena" role="status" aria-live="polite">
+                <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                ¡Gracias! Tu reseña se guardó correctamente.
+              </div>
+            </div>
+          </div>
+
+          <!-- Promedio, distribución y reseñas -->
+          <div class="col-lg-7">
+            <div class="tw-rating-resumen">
+              <div class="tw-rating-score">
+                <span class="tw-nota" id="promedioNota">4.3</span>
+                <div class="tw-stars-display" id="promedioEstrellas" aria-hidden="true"></div>
+                <p id="promedioTexto">Basado en 6 reseñas</p>
+              </div>
+
+              <div class="tw-distribucion" id="distribucionEstrellas">
+                <!-- JavaScript genera las barras de 5 a 1 estrellas -->
+              </div>
+
+              <div class="tw-resenas">
+                <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
+                  <h3>Reseñas recientes</h3>
+                  <button type="button" class="btn tw-btn-ghost btn-sm" id="btnRestaurarResenas">
+                    <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Restaurar demo
+                  </button>
+                </div>
+                <div id="listaResenas">
+                  <!-- JavaScript inserta las reseñas -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         QUIZ
+         ============================================================ -->
+    <section class="tw-section tw-quiz-section" id="quiz" aria-labelledby="tituloQuiz">
+      <div class="container">
+        <header class="tw-section-head">
+          <p class="tw-eyebrow">Demuestra cuánto sabes</p>
+          <h2 id="tituloQuiz">Quiz de Crepúsculo</h2>
+          <p>
+            Nueve preguntas sobre la primera película. Cada pregunta incluye una imagen y una
+            explicación. ¿Podrás conseguir las cinco estrellas?
+          </p>
+        </header>
+
+        <div class="tw-quiz-card">
+          <div class="tw-quiz-cabecera">
+            <span id="quizProgresoTexto">Pregunta 1 de 9</span>
+            <span><strong id="quizPuntajeTexto">0</strong> aciertos</span>
+          </div>
+
+          <div class="progress" role="progressbar" aria-label="Progreso del quiz"
+               aria-valuemin="0" aria-valuemax="9" aria-valuenow="1" id="quizProgreso">
+            <div class="progress-bar" id="quizProgresoBar" style="width: 11%"></div>
+          </div>
+
+          <div class="row g-4 align-items-center mt-1">
+            <div class="col-lg-5">
+              <figure class="tw-quiz-figure">
+                <img id="quizImagen" class="tw-photo" src="assets/img/forks.jpg"
+                     alt="Letrero de bienvenida del pueblo de Forks, Washington"
+                     width="900" height="570">
+                <figcaption id="quizPie">Pregunta 1 · La historia</figcaption>
+              </figure>
+            </div>
+
+            <div class="col-lg-7">
+              <p class="tw-eyebrow" id="quizCategoria">Pregunta 1</p>
+              <h3 id="quizPregunta" tabindex="-1">
+                ¿A qué pueblo se muda Bella al inicio de la película?
+              </h3>
+
+              <!-- Los botones de respuesta se generan con JavaScript -->
+              <div id="quizOpciones" class="d-grid gap-2" role="group" aria-labelledby="quizPregunta"></div>
+
+              <div id="quizFeedback" class="tw-quiz-feedback mt-3" aria-live="polite">
+                <!-- Aquí aparece la explicación de cada respuesta -->
+              </div>
+
+              <div class="tw-quiz-pie">
+                <button type="button" class="btn tw-btn-ghost" id="quizReiniciar">
+                  <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Reiniciar
+                </button>
+                <button type="button" class="btn tw-btn-primary" id="quizSiguiente" disabled>
+                  Siguiente <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="tw-mejor text-center mt-3 mb-0">
+          <i class="bi bi-trophy" aria-hidden="true"></i>
+          Mejor puntaje en este navegador: <strong id="quizMejor">—</strong>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       PIE DE PÁGINA
+       ============================================================ -->
+  <footer class="tw-footer" aria-labelledby="tituloFooter">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <h2 id="tituloFooter" class="h4">Crepúsculo Wiki</h2>
+          <p>
+            Proyecto educativo sin ánimo de lucro creado para practicar el sistema de rejilla,
+            los componentes y las utilidades de <strong>Bootstrap 5</strong>, junto con HTML5 y
+            CSS3 accesibles y adaptativos.
+          </p>
+          <p class="mb-0">
+            <strong>Aviso de derechos de autor:</strong> Crepúsculo, sus personajes, sus pósters y
+            sus imágenes son propiedad de Stephenie Meyer, Summit Entertainment, Lionsgate y sus
+            respectivos autores. Se utilizan únicamente con fines ilustrativos y educativos, sin
+            intención de infringir derechos. Si eres titular de algún contenido y deseas su
+            retirada, contacta con el autor del proyecto.
+          </p>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <h3>Navegación</h3>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#pelicula">La película</a></li>
+            <li><a href="#personajes">Personajes</a></li>
+            <li><a href="#destacados">Protagonistas</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+            <li><a href="#calificar">Calificar</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-4">
+          <h3>Fuentes y créditos</h3>
+          <p>
+            La información y las imágenes se inspiran en la
+            <a href="https://crepusculo.fandom.com/wiki/P%C3%A1gina_principal" target="_blank"
+               rel="noopener noreferrer">Wiki de Crepúsculo en Fandom</a>.
+          </p>
+
+          <details>
+            <summary>Ver créditos de imágenes</summary>
+            <ul>
+              <li>Pósters y retratos: Twilight Wiki (Fandom).</li>
+              <li>Fotografías de Stephenie Meyer y Catherine Hardwicke: Fandom.</li>
+              <li>Capturas de escenas: Summit Entertainment / Lionsgate.</li>
+              <li>Uso educativo, no comercial y sin afiliación oficial.</li>
+            </ul>
+          </details>
+
+          <p class="mt-3 mb-0">
+            <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap 5</a>
+            · HTML5 · CSS3 · JavaScript
+          </p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+        <p class="mb-0">© <span id="anioActual">2026</span> Crepúsculo Wiki · Proyecto educativo.</p>
+        <p class="mb-0">Actividad 3.4.2 · Interfaz web responsiva con Bootstrap · GFPI-F-135 V04</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón flotante para volver arriba -->
+  <button type="button" class="tw-back-top" id="btnArriba" aria-label="Volver arriba">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ============================================================
+       MODALES
+       ============================================================ -->
+
+  <!-- Modal de ficha de personaje -->
+  <div class="modal fade" id="modalPersonaje" tabindex="-1" aria-labelledby="personajeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="personajeModalLabel">Ficha del personaje</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-sm-5">
+              <img id="personajeImagen" class="tw-photo" src="assets/img/bella.jpg"
+                   alt="Retrato del personaje" width="600" height="840">
+            </div>
+            <div class="col-sm-7">
+              <h3 id="personajeNombre">Bella Swan</h3>
+              <p class="tw-actor mb-2"><span id="personajeActor">Kristen Stewart</span></p>
+              <span class="tw-badge tw-badge-vampiro" id="personajeEspecie">Vampiro</span>
+              <p class="mt-3 mb-0" id="personajeDescripcion"></p>
+              <blockquote class="tw-modal-cita" id="personajeCita"></blockquote>
+              <dl class="tw-modal-datos" id="personajeDatos"></dl>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn tw-btn-outline" data-bs-dismiss="modal">Cerrar ficha</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de la galería (lightbox) -->
+  <div class="modal fade" id="modalGaleria" tabindex="-1" aria-labelledby="galeriaTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="galeriaTitulo">Galería</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="galeriaImagen" src="assets/img/escena-prado.jpg"
+               alt="Imagen ampliada de la galería" width="1000" height="666">
+          <p id="galeriaDescripcion" class="mt-2"></p>
+          <p class="small text-muted mb-0">
+            Imagen con fines educativos. Créditos: Twilight Wiki (Fandom) y sus autores.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de resultado del quiz -->
+  <div class="modal fade" id="modalQuiz" tabindex="-1" aria-labelledby="quizResultadoTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="quizResultadoTitulo">Resultado del quiz</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body tw-resultado">
+          <span class="tw-resultado-nota" id="quizResultadoNota">0/9</span>
+          <div class="tw-resultado-estrellas" id="quizResultadoEstrellas" aria-hidden="true"></div>
+          <h3 id="quizResultadoMensaje">¡Buen intento!</h3>
+          <p id="quizResultadoTexto"></p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn tw-btn-outline" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn tw-btn-primary" id="quizReintentar">
+            <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Jugar de nuevo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: primero los datos, luego la lógica de la interfaz -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/data.js?v=1"></script>
+  <script src="assets/js/app.js?v=1"></script>
+</body>
+</html>
