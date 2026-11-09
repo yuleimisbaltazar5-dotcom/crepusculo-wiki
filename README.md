@@ -24,6 +24,15 @@ Abre <http://127.0.0.1:8098/>.
 También puede abrirse directamente `index.html`, aunque se recomienda usar un servidor local
 para que el navegador cargue correctamente todos los recursos.
 
+### Con XAMPP (Windows)
+
+1. Copia la carpeta `crepusculo-wiki` dentro de `C:\xampp\htdocs\`.
+2. Abre el **Panel de control de XAMPP** y pulsa **Start** en el módulo *Apache*
+   (MySQL no es necesario: el proyecto no usa base de datos).
+3. Abre <http://localhost/crepusculo-wiki/> en el navegador.
+
+Para detenerlo, pulsa **Stop** en *Apache*.
+
 ## Estructura
 
 ```
